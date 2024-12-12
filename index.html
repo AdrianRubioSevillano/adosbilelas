@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Dos Bielas - Alquiler de Bicicletas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/flatpickr.min.css">
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f8f8f8;
+        }
+
+        header {
+            background-color: #556b2f;
+            color: white;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .header-logo {
+            position: absolute;
+            left: 20px;
+            top: 10px;
+        }
+
+        .header-title {
+            text-align: center;
+            flex: 1;
+        }
+
+        .header-title h1 {
+            font-family: 'Georgia', serif;
+            font-size: 3rem; /* Tamaño de fuente mayor para que el logo sea más grande */
+            margin: 0;
+        }
+
+        .header-logo img {
+            height: 120px; /* Tamaño de logo aumentado */
+        }
+
+        nav {
+            background-color: #556b2f;
+            padding: 10px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .hero {
+            background-image: url('pexels-marek-piwnicki-3907296-15924758.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .content {
+            padding: 40px 20px;
+        }
+
+        .content img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        
+        /* Contenedor para el texto y los elementos multimedia */
+.about-text {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+}
+
+/* Contenedor de la imagen y el video */
+.media-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+/* Imagen a la derecha */
+.about-image {
+    width: 45%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* Video a la izquierda */
+.about-video {
+    width: 45%;
+    height: auto;
+    object-fit: cover;
+}
+
+        .content p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .bikes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        /* Contenedor principal de cada bicicleta */
+.bike {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Contenedor de la imagen inicial */
+.bike-image {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.bike-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    filter: brightness(0.5); /* Oscurece la imagen inicialmente */
+}
+
+/* Texto sobre la imagen */
+.bike-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    z-index: 1;
+    transition: background-color 0.3s ease;
+}
+
+/* Información oculta inicialmente */
+.bike-info {
+    position: absolute;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    padding: 15px;
+    text-align: center;
+    font-size: 1rem;
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+    transition: bottom 0.3s ease;
+    z-index: 2;
+}
+
+.bike-info p{
+    margin: 0;
+}
+/* Efecto hover: la imagen se aclara y se muestra la información */
+.bike:hover .bike-image img {
+    transform: scale(1.1);
+    filter: brightness(1); /* Aclara la imagen */
+}
+
+.bike:hover .bike-info {
+    bottom: 0; /* Despliega la información */
+}
+
+        
+        
+
+        footer {
+            background-color: #556b2f;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        footer .info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        footer .info div {
+            flex: 1;
+        }
+
+        footer .info img {
+            height: 100px;
+        }
+
+        footer .info h3 {
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .calendar-container {
+            margin-top: 20px;
+            margin-right: 500px;
+            margin-left: 500px;
+            margin-bottom: 20px;
+        }
+
+        .calendar-container input {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .calendar-container .flatpickr-calendar {
+            border-radius: 8px;
+        }
+
+        .content h2{
+            text-align: center;
+        }
+        .verde {
+            text-align: center;
+            color: #556b2f;
+        }
+        .schedule-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .schedule {
+            background-color: #ffffff;
+            border: 2px solid #556b2f;
+            border-radius: 8px;
+            padding: 15px;
+            width: 300px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .schedule h2 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: #333333;
+        }
+        .schedule ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .schedule li {
+            margin-bottom: 10px;
+        }
+        .icon {
+            font-size: 1.2em;
+            margin-right: 8px;
+        }
+        
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-logo">
+            <img src="Captura_de_pantalla_2024-12-10_a_las_13.03.04-removebg-preview.png" alt="Logo A Dos Bielas">
+        </div>
+        <div class="header-title">
+            <h1>A Dos Bielas</h1>
+        </div>
+    </header>
+    <div class="hero">
+        <h1>Descubre la Sierra de Jaén sobre dos ruedas</h1>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="#sobre-nosotros">Sobre Nosotros</a></li>
+            <li><a href="#bicis">Bicicletas</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+    </nav>
+    <div class="content" id="sobre-nosotros">
+        <h2>¡Explora la Sierra de Jaén como nunca antes con "A Dos Bielas"! 🚴‍♂️</h2>
+        <div class="about-text">
+            <div class="media-container">
+                <div class="about-video">
+                    <p>En <strong>A Dos Bielas</strong>, somos apasionados del ciclismo y de las maravillas naturales de nuestra tierra. Nos dedicamos a ofrecer una experiencia única para quienes desean <strong>descubrir la belleza incomparable de la Sierra de Jaén</strong> de una manera activa, divertida y segura.</p>
+                    <h3>🌿 Sobre nosotros</h3>
+                    <p>Somos una empresa local comprometida con ofrecerte mucho más que un simple alquiler de bicicletas. Amamos el ciclismo y conocemos cada rincón de la Sierra de Jaén, lo que nos permite brindarte una experiencia auténtica y personalizada. Nuestro objetivo es que disfrutes al máximo, con todas las comodidades y la seguridad que necesitas.</p>
+                    <p>En <strong>A Dos Bielas</strong>, creemos en la conexión con la naturaleza y en promover un estilo de vida sostenible, todo mientras exploramos los paisajes más increíbles de nuestra región.</p>
+                    <img src="olivos.jpg" alt="Foto de la Sierra de Jaén">
+                </div>
+                <div class="about-image">
+                    <img src="Captura de pantalla 2024-12-12 a las 17.28.14.png" alt="">
+                    <h3>🌄 Descubre la Sierra de Jaén</h3>
+                    <p>La Sierra de Jaén es un verdadero paraíso para los amantes de la naturaleza y el deporte. Con sus impresionantes paisajes, senderos desafiantes y un entorno cargado de historia, es el destino perfecto para los que buscan <strong>aventura y desconexión</strong>. Nuestros recorridos te llevarán a explorar sus rincones más espectaculares, desde sus frondosos bosques hasta sus miradores con vistas de ensueño.</p>
+                    <h3>🚴‍♀️ ¿Por qué elegirnos?</h3>
+                    <p>No solo alquilamos bicicletas, <strong>creamos experiencias completas</strong>. Cada vez que alquilas una bici con nosotros, te ofrecemos:</p>
+                    <ul>- <strong>GPS con rutas personalizadas</strong>, para que disfrutes de caminos diseñados según tu nivel y preferencias.</ul>
+                    <ul>- <strong>Casco y chaleco reflectante</strong>, porque tu seguridad es nuestra prioridad.</ul>
+                    <ul>- <strong>Servicio de mecánico y equipo de emergencia</strong>, listo para ayudarte si surge cualquier imprevisto durante tu aventura.</ul>
+                </div>
+            </div>
+            <h2>En A Dos Bielas, nos preocupamos por cada detalle para que solo tengas que concentrarte en disfrutar.</h2>
+        </div>
+    </div>
+    <div class="content bikes" id="bicis">
+        <div class="bike">
+            <div class="bike-image">
+                <img src="02_key-features.jpg" alt="Bicicleta de Montaña">
+                <div class="bike-overlay">
+                    <h3>Bicicletas de Montaña</h3>
+                </div>
+            </div>
+            <div class="bike-info">
+                
+                    <p ><strong>Precio por hora: </strong><strong class="price">5€</strong></p>
+                
+                <p>Ideal para paseos cortos</p>
+                
+                    <p ><strong>Precio por dia: </strong><strong class="price">20€</strong></p>
+                    <p>¡Ahorra más y disfruta al máximo!</p>
+                
+                
+                <p><strong>Robustas y ligeras, perfectas para cualquier terreno.</strong></p>
+            </div>
+        </div>
+        <div class="bike">
+            <div class="bike-image">
+                <img src="wild-claim-1-mobile.jpg" alt="Bicicleta Eléctrica">
+                <div class="bike-overlay">
+                    <h3>E-Bikes de Montaña</h3>
+                </div>
+            </div>
+            <div class="bike-info">
+                <p ><strong>Precio por hora: </strong><strong class="price">10€</strong></p>
+                
+                <p>Ideal para paseos cortos</p>
+                
+                    <p ><strong>Precio por dia: </strong><strong class="price">40€</strong></p>
+                    <p>¡Ahorra más y disfruta al máximo!</p>
+                
+                
+                <p><strong>Con asistencia eléctrica para que ningún camino sea demasiado difícil.</strong></p>
+            </div>
+        </div>
+    </div>
+    <h1 class="verde">Horario de Atención</h1>
+    <div class="schedule-container">
+        <div class="schedule">
+            <h2><span class="icon">🗓️</span>Lunes a viernes</h2>
+            <ul>
+                <li><strong>Invierno:</strong> 9:00 - 14:00 y 16:00 - 19:00</li>
+                <li><strong>Verano:</strong> 8:00 - 13:00 y 18:00 - 21:00</li>
+            </ul>
+        </div>
+        <div class="schedule">
+            <h2><span class="icon">🌟</span>Fines de semana</h2>
+            <ul>
+                <li><strong>Invierno:</strong> 9:00 - 19:00</li>
+                <li><strong>Verano:</strong> 8:00 - 15:00 y 18:00 - 21:00</li>
+            </ul>
+        </div>
+    </div>
+    </div>
+    <div class="calendar-container">
+        <h2>Reserva tu aventura</h2>
+        <form>
+            <label for="date">Fecha:</label>
+            <input type="date" id="date" name="date" placeholder="Selecciona tu fecha">
+            <p></p>
+            <label for="time">Hora:</label>
+            <input type="time" id="timepicker" name="time">
+            <p></p>
+            <label for="bikes">Número de bicicletas:</label>
+            <input type="number" id="num_bikes" name="num_bikes" min="1">
+            <p></p>
+            <label for="bike_type">Tipo de bicicleta:</label>
+            <select name="bike_type" id="bike_type">
+                <option value="montaña">Montaña</option>
+                <option value="electrica">Eléctrica</option>
+            </select>
+            <p></p>
+            <label for="name">Nombre:</label>
+            <input type="text" name="name">
+            <p></p>
+            <label for="email">Email:</label>
+            <input type="email" name="email">
+            <p></p>
+            <button type="submit">Reservar</button>
+        </form>
+    </div>
+    <footer id="contacto">
+        <div class="info">
+            <div>
+                <h3>Contacto</h3>
+                <p>Teléfono: 601158951</p>
+                <p>Email: info@adosbielas.com</p>
+            </div>
+            <div>
+                <img src="Captura_de_pantalla_2024-12-10_a_las_13.03.04-removebg-preview.png" alt="Logo pequeño">
+            </div>
+        </div>
+        <div>
+            <h3>Ubicación</h3>
+            <p>Puente Jontoya, Sierra de Jaén</p>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12629.244130492416!2d-3.132723915334723!3d37.88159602223872!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd7b3c2c8e4b0c7d%3A0x452b3b2c8b8c8fbd!2sPuente+Jontoya!5e0!3m2!1ses!2ses!4v1684128471111!5m2!1ses!2ses" width="100%" height="300" style="border:0;"></iframe>
+        </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/flatpickr.min.js"></script>
+</body>
+</html>
+
